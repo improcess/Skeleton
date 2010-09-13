@@ -1,0 +1,13 @@
+Improcess App Skeleton
+======================
+
+This is a basic scaffolding structure to support the development of Monome apps with Clojure and Overtone. It is very much in an embryonic state and may well end up as a lein plugin.
+
+However, for now the shell script new is used to start new projects:
+
+./new foo
+
+This will create a new project called foo in the apps directory. It will pull down all the dependencies and also include a number of external projects as submodules. The submodules will be registered as read-only versions in the .git/config of the project, however, these are overwritten with writable versions of the submodules for development purposes (you need to have commit writes to the various projects to write to them). This means that the project can be successfully cloned by a user that doesn't have write access to the submoduled projects.
+
+Have fun and create something beautiful...
+
