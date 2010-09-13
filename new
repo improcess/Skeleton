@@ -1,0 +1,47 @@
+#!/bin/sh
+
+echo Creating new project apps/$1
+
+#create project
+cd apps
+lein new $1
+
+cd $1
+
+#pull in project template files (i.e. a gitignore and merge-checkout-deps script)
+cp ../../etc/new-project-template/* .
+cp ../../etc/new-project-template/.* .
+
+#initialise repo
+git init
+git add .
+git commit -m "initial commit"
+
+#add submodule projects
+mkdir checkouts
+git submodule add git://github.com/overtone/overtone.git checkouts/overtone
+git submodule add git://github.com/samaaron/clj-monome-serial.git checkouts/monome-serial
+git submodule add git://github.com/improcess/polynome.git checkouts/polynome
+git submodule add git://github.com/improcess/overtone-contrib.git checkouts/overtone-contrib
+git add .
+git commit -m "add subprojects as submodules"
+
+#pull in and merge all checkout deps
+./merge-checkout-deps.rb
+
+#make submodule origin writable for dev purposes
+cd checkouts/overtone
+git remote rm origin
+git remote add origin git@github.com:overtone/overtone.git
+
+cd ../monome-serial
+git remote rm origin
+git remote add origin git@github.com:samaaron/clj-monome-serial.git
+
+cd ../polynome
+git remote rm origin
+git remote add origin git@github.com:improcess/polynome.git
+
+cd ../overtone-contrib
+git remote rm origin
+git remote add origin git@github.com:improcess/overtone-contrib.git
