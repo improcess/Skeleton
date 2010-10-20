@@ -19,10 +19,12 @@ git commit -m "initial commit"
 
 #add submodule projects
 mkdir checkouts
+git submodule add git://github.com/overtone/overtone-gui.git checkouts/overtone-gui
 git submodule add git://github.com/overtone/overtone.git checkouts/overtone
 git submodule add git://github.com/improcess/clj-monome-serial.git checkouts/monome-serial
 git submodule add git://github.com/improcess/polynome.git checkouts/polynome
 git submodule add git://github.com/improcess/overtone-contrib.git checkouts/overtone-contrib
+git submodule add git://github.com/improcess/space-navigator.git checkouts/space-navigator
 git add .
 git commit -m "add subprojects as submodules"
 
@@ -33,6 +35,10 @@ git commit -m "add subprojects as submodules"
 cd checkouts/overtone
 git remote rm origin
 git remote add origin git@github.com:overtone/overtone.git
+
+cd ../overtone-gui
+git remote rm origin
+git remote add origin git@github.com:overtone/overtone-gui.git
 
 cd ../monome-serial
 git remote rm origin
@@ -45,3 +51,7 @@ git remote add origin git@github.com:improcess/polynome.git
 cd ../overtone-contrib
 git remote rm origin
 git remote add origin git@github.com:improcess/overtone-contrib.git
+
+cd ../space-navigator
+git remote rm origin
+git remote add origin git@github.com:improcess/space-navigator.git
