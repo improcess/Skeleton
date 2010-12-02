@@ -1,16 +1,23 @@
 #!/bin/sh
 
+command -v lein >/dev/null || { echo "Checking for lein... NOT PRESENT\n\nPlease install lein and try again:\n1. Download this script - http://github.com/technomancy/leiningen/raw/stable/bin/lein\n2. Place it on your path and chmod it to be executable." ; exit -1; }
+
+command -v git >/dev/null || { echo "Checking for git... NOT PRESENT\n\nPlease install git and try again." ; exit -1; }
+
 echo Creating new project apps/$1
 
 #create project
+
+mkdir -p apps
 cd apps
+
 lein new $1
 
 cd $1
 
 #pull in project template files (i.e. a gitignore and merge-checkout-deps script)
-cp ../../etc/new-project-template/* .
-cp ../../etc/new-project-template/.* .
+cp -R ../../etc/new-project-template/* .
+cp -R ../../etc/new-project-template/.* .
 
 #initialise repo
 git init
